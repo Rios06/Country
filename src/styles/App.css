@@ -1,0 +1,32 @@
+.logo {
+width: 100px;
+align-items: center;
+display: flex;
+margin-left: 40px;
+margin-bottom: 20px;
+
+
+}
+
+.menu-container {
+    position: fixed;
+    left: 0;
+   font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    height: 100vh;
+    width: 240px; /* Ancho del menú lateral */
+    background-color: #0d0d0d; /* Color de fondo del menú */
+    color: white; /* Color del texto del menú */
+  }
+  
+  .menu-items {
+    padding: 20px;
+   
+  }
+  
+  .menu-items a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 10px;
+  }
