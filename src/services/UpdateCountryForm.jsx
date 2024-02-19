@@ -1,5 +1,6 @@
 //formulario de actualización
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export const UpdateCountryForm = () => {
   const [country, setCountry] = useState({});
@@ -16,29 +17,62 @@ export const UpdateCountryForm = () => {
   };
 
   const handleClickDelete = () => {
-    try {
-      fetch(`http://localhost:3000/country/country/${inputValue}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((response) => response.json())
-        .then((data) => setCountry(data));
-    } catch (error) {
-      console.log(error);
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want to delete the country?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          fetch(`http://localhost:3000/country/country/${inputValue}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              setCountry(data);
+              Swal.fire(
+                'Deleted!',
+                'Your country has been deleted.',
+                'success'
+              )
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })
   };
 
-  const handleUpdate = () => {
-    try {
-      fetch(`http://localhost:3000/country/country/${inputValue}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(country),
-      })
-        .then((response) => response.json())
-        .then((data) => setCountry(data));
-    } catch (error) {
-      console.log(error);
+  const handleUpdate = async () => {
+    const confirmation = await Swal.fire({
+      title: "Confirm Update",
+      text: "Are you sure you want to update the country?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    });
+
+    if (confirmation.isConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:3000/country/country/${inputValue}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(country),
+        });
+        const data = await response.json();
+        setCountry(data);
+        Swal.fire("Updated!", "Your country has been updated.", "success");
+      } catch (error) {
+        console.error(error);
+        Swal.fire("Error!", "An error occurred during update.", "error");
+      }
     }
   };
 
