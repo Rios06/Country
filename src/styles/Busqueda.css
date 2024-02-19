@@ -1,5 +1,6 @@
 .country-box {
   /* Estilos generales para todas las tarjetas de país */
+  
   font-family: Arial, Helvetica, sans-serif;
   border: 1px solid #d9d9d9;
   border-radius: 25px;
@@ -53,7 +54,7 @@ body{
   margin: 0 auto; /* Centrar horizontalmente */
   border: 1px solid #ccc;
   border-radius: 25px;
-  padding: 6px 100px;
+  padding: 6px 220px;
   margin-top: 40px;
   margin-bottom: 40px;
   background-color: #ffffff;
@@ -95,3 +96,78 @@ input[type="text"] {
  color: rgb(55, 118, 255);
  
 }
+
+.continents {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin-top: 125px;
+  border-radius: 25px;
+  margin-left: 480px;
+  background-color: #ffffff;
+  width: 530px;
+  height: 340px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.continent-images-container {
+  display: flex;
+  justify-content: center; 
+  flex-wrap: wrap;
+}
+
+.continent-box {
+  cursor: pointer;
+  
+}
+
+.continents h1 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 430;
+  font-size: 1.1em;
+  color: #7e7e7e;
+  margin-left: 20px;
+  margin-top: 20px;
+  
+}
+.countries-container {
+  position: relative; /* Asegura que el contenedor de países mantenga su posición relativa */
+}
+.search-label {
+  position: absolute;
+  top: 5px; /* Ajusta esta propiedad para cambiar la distancia vertical del texto */
+  left: 30px; /* Ajusta esta propiedad para cambiar la distancia horizontal del texto */
+  font-size: 1.0em; /* Ajusta el tamaño de fuente del texto */
+  color: #656565; /* Ajusta el color del texto */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.continent-image {
+  width: 130px; 
+  height: auto;
+  margin-bottom: 10px;
+}
+
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-input {
+  flex: 1;
+  margin-top: 12px;
+}
+
+.clear-filter {
+  margin-left: 470px;
+  margin-top: -30px;
+  color: rgb(43, 105, 252);
+ font-size: 1.1em;
+}
+
+
+
+
