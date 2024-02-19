@@ -1,9 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import { useCountryData  } from "./useCountryData";
+import Swal from "sweetalert2";
 
 const CountryCreationForm = () => {
   const { country, setCode } = useCountryData();
+  
+
 
   const [formData, setFormData] = useState({
     code: "",
@@ -14,6 +17,8 @@ const CountryCreationForm = () => {
     languages: "",
   });
 
+  
+
   const handleCodeChange = (e) => {
     const countryCode = e.target.value;
     setCode(countryCode.toUpperCase());
@@ -23,10 +28,13 @@ const CountryCreationForm = () => {
     });
   };
 
+  
+
   const handleConsultClick = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/country/countries");
+      const response = await axios.get("http://localhost:3000/country/countries", country);
       console.log("Consulta realizada con éxito:", response.data);
+      
     } catch (error) {
       console.log("Error al consultar:", error);
     }
@@ -34,10 +42,38 @@ const CountryCreationForm = () => {
 
   const handleCreateCountryClick = async () => {
     try {
-      await axios.post("http://localhost:3000/country/countries", country);
-      console.log("País creado con éxito");
+       await axios.post("http://localhost:3000/country/countries", country)
+      .then((response) => {
+        if (Object.keys(response.data).length === 7) {
+          console.log("Creado correctamente:", response.data);
+          Swal.fire({
+            title: 'Successful Creation',
+            text: 'The country has been created successfully.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else{
+          console.log("Error al crear el país:", response.data);
+          Swal.fire({
+            title: 'Error Creating Country',
+            text: 'The country already exists.',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
     } catch (error) {
       console.log("Error al crear el país:", error);
+      Swal.fire({
+        title: 'Error',
+        text: 'There was an error creating the country.',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      
     }
   };
 
