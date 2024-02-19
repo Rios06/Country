@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import imgContinent from './Img';
 import ApiGraph from "./ApiGraph";
 import "../styles/Busqueda.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +12,16 @@ export const SearchCountries = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [filteredContinent, setFilteredContinent] = useState("");
+  const [showContinents, setShowContinents] = useState(false);
+
+  const continents = [
+    { name: "África", code: "Africa", image: imgContinent.Africa },
+    { name: "Asia", code: "Asia", image: imgContinent.Asia },
+    { name: "Europa", code: "Europe", image: imgContinent.Europe },
+    { name: "América del Norte", code: "North America", image: imgContinent.NorthAmerica },
+    { name: "Oceanía", code: "Oceania", image: imgContinent.Oceania },
+    { name: "América del Sur", code: "South America", image: imgContinent.SouthAmerica },
+  ];
 
   const handleSearch = (value) => {
     const normalizedInput = value.toLowerCase();
@@ -34,6 +45,8 @@ export const SearchCountries = () => {
 
   const handleContinentFilter = (continent) => {
     setFilteredContinent(continent);
+    handleSearch(inputValue);
+    setShowContinents(false); 
   };
 
   useEffect(() => {
@@ -58,36 +71,51 @@ export const SearchCountries = () => {
     <div className="search">
       <div className="content-search">
         <div className="search-container">
-          <div className="search-bar">
-            <div className="search-icon">
-              <div className="search-icon-content">
-                <FontAwesomeIcon icon={faSearch} id="searchCountryIcon" />
-                <span>Buscar</span>
+          <div className="search-bar" onClick={() => setShowContinents(!showContinents)}>
+            <div className="search-input">
+              <div className="search-icon">
+                <div className="search-icon-content">
+                  <FontAwesomeIcon icon={faSearch} id="searchCountryIcon" />
+                  <span>Look for</span>
+                </div>
               </div>
+              <label htmlFor="searchInput" className="search-label">Country</label>
+              <input
+                type="text"
+                value={inputValue}
+                onChange={handleChange}
+                onKeyDown={handleKeyPress}
+                
+                placeholder="write the country you want to see"
+              />
             </div>
-            <input
-              type="text"
-              value={inputValue}
-              onChange={handleChange}
-              onKeyDown={handleKeyPress}
-              placeholder="Buscar país por nombre"
-            />
           </div>
-          <div className="filter-container">
-            <h3>Filtrar por continente:</h3>
-            <select
-              value={filteredContinent}
-              onChange={(e) => handleContinentFilter(e.target.value)}
-            >
-              <option value="">Todos</option>
-              <option value="Africa">África</option>
-              <option value="Asia">Asia</option>
-              <option value="Europe">Europa</option>
-              <option value="North America">América del Norte</option>
-              <option value="Oceania">Oceanía</option>
-              <option value="South America">América del Sur</option>
-            </select>
-          </div>
+          {showContinents && (
+  <div className="continents">
+    <h1>Filter by continents</h1> 
+    <div className="clear-filter" onClick={() => {setShowContinents(false); setFilteredContinent(""); setInputValue(""); setSearchResults([]);}}>
+      Clean
+    </div>
+    <div className="continent-images-container">
+      {continents.map((continent) => (
+        <div
+          key={continent.code}
+          className={`continent-box ${filteredContinent === continent.code ? "selected" : ""}`}
+          onClick={() => handleContinentFilter(continent.code)}
+          style={{ cursor: "pointer" }}
+        >
+          <img
+            src={continent.image}
+            alt={continent.name}
+            className="continent-image"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+        
         </div>
         <div className="countries-container">
           {filteredCountries.map((country) => (
@@ -120,9 +148,9 @@ export const SearchCountries = () => {
                 {selectedCountry === country && (
                   <div className="additional-info">
                     <p>Capital: {country.capital}</p>
-                    <p>Moneda: {country.currency}</p>
+                    <p>Currency: {country.currency}</p>
                     <p>
-                      Idiomas:{" "}
+                    Languages:{" "}
                       {country.languages
                         .map((language) => language.name)
                         .join(", ")}
@@ -139,3 +167,6 @@ export const SearchCountries = () => {
 };
 
 export default SearchCountries;
+
+
+
