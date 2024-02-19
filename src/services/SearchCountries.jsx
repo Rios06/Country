@@ -10,7 +10,7 @@ export const SearchCountries = () => {
   const [inputValue, setInputValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const [filteredContinent, setFilteredContinent] = useState(null);
+  const [filteredContinent, setFilteredContinent] = useState("");
 
   const handleSearch = (value) => {
     const normalizedInput = value.toLowerCase();
@@ -49,9 +49,7 @@ export const SearchCountries = () => {
   };
 
   const filteredCountries = filteredContinent
-    ? countries.filter(
-        (country) => country.continent.name === filteredContinent
-      )
+    ? countries.filter((country) => country.continent.name === filteredContinent)
     : searchResults.length
     ? searchResults
     : countries;
@@ -141,5 +139,3 @@ export const SearchCountries = () => {
 };
 
 export default SearchCountries;
-
-
