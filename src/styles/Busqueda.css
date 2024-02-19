@@ -86,11 +86,17 @@ body{
   margin-left: 5px; /* Ajusta el espaciado entre el icono y el texto */
 }
 
-input[type="text"] {
-  flex: 1; /* El input toma todo el espacio disponible */
-  border: none; /* Quitar el borde del input */
-  outline: none; /* Quitar el contorno del input al enfocar */
+
+.search-input input[type="text"] {
+  border: none; 
+  border-bottom: 3px solid transparent; 
 }
+
+
+.search-input input[type="text"]:focus {
+  border-bottom-color: #7facff; 
+}
+
 
 .info-section h3 {
  color: rgb(55, 118, 255);

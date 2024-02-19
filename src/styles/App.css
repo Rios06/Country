@@ -8,13 +8,30 @@ margin-bottom: 20px;
 
 }
 
+.menu-items a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.menu-items a.active-link,
+.menu-items a:hover,
+.menu-items a:focus {
+  background-color: white;
+  color: black; 
+  border-radius: 5px;
+}
+
+
 .menu-container {
     position: fixed;
     left: 0;
    font-family: Arial, Helvetica, sans-serif;
     top: 0;
     height: 100vh;
-    width: 240px; /* Ancho del menú lateral */
+    width: 260px; 
     background-color: #0d0d0d; /* Color de fondo del menú */
     color: white; /* Color del texto del menú */
   }
@@ -23,10 +40,9 @@ margin-bottom: 20px;
     padding: 20px;
    
   }
-  
-  .menu-items a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    margin-bottom: 10px;
+  .date {
+    color: white;
+    font-size: 14px;
+    margin-top: 380px;
+    text-align: center;
   }
