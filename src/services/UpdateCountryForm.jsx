@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 
+
+
 export const UpdateCountryForm = () => {
   const [country, setCountry] = useState({});
   const [inputValue, setValue] = useState("");
@@ -172,3 +174,6 @@ export const UpdateCountryForm = () => {
     </>
   );
 };
+
+
+export default UpdateCountryForm;
