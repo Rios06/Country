@@ -1,8 +1,5 @@
-//formulario de actualización
 import { useState } from "react";
 import Swal from "sweetalert2";
-
-
 
 export const UpdateCountryForm = () => {
   const [country, setCountry] = useState({});
@@ -11,22 +8,33 @@ export const UpdateCountryForm = () => {
   const handleClick = () => {
     try {
       fetch(`http://localhost:3000/country/country/${inputValue}`)
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "the code does not exist",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+          return response.json();
+        })
         .then((data) => setCountry(data));
     } catch (error) {
-      console.log(error);
+      console.log(error, "Error al traer los datos");
     }
   };
 
   const handleClickDelete = () => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "Do you want to delete the country?",
-      icon: 'question',
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         try {
@@ -38,16 +46,16 @@ export const UpdateCountryForm = () => {
             .then((data) => {
               setCountry(data);
               Swal.fire(
-                'Deleted!',
-                'Your country has been deleted.',
-                'success'
-              )
+                "Deleted!",
+                "Your country has been deleted.",
+                "success"
+              );
             });
         } catch (error) {
           console.log(error);
         }
       }
-    })
+    });
   };
 
   const handleUpdate = async () => {
@@ -63,11 +71,14 @@ export const UpdateCountryForm = () => {
 
     if (confirmation.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:3000/country/country/${inputValue}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(country),
-        });
+        const response = await fetch(
+          `http://localhost:3000/country/country/${inputValue}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(country),
+          }
+        );
         const data = await response.json();
         setCountry(data);
         Swal.fire("Updated!", "Your country has been updated.", "success");
@@ -109,22 +120,17 @@ export const UpdateCountryForm = () => {
             <input
               type="text"
               id="code"
-              
-              onBlur={(e) => setValue(e.target.value)}
+              onBlur={(e) => setValue(e.target.value.toUpperCase())}
             />
             <button onClick={handleClick}>Consult</button>
           </div>
           <div className="right-input">
             <label htmlFor="code">Code</label>
+            <input type="text" id="code" defaultValue={country.code} />
+            <label htmlFor="name">Name</label>
             <input
               type="text"
-              id="code"
-              defaultValue={country.code}
-            />
-             <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              name ="name"
+              name="name"
               defaultValue={country.name}
               onBlur={handleChange}
             />
@@ -133,14 +139,14 @@ export const UpdateCountryForm = () => {
             <label htmlFor="continent">Continent</label>
             <input
               type="text"
-              name ="continent"
+              name="continent"
               defaultValue={country.continent?.name}
               onBlur={handleChange}
             />
             <label htmlFor="capital">Capital</label>
             <input
               type="text"
-              name ="capital"
+              name="capital"
               defaultValue={country.capital}
               onBlur={handleChange}
             />
@@ -149,31 +155,31 @@ export const UpdateCountryForm = () => {
             <label htmlFor="languages">Languages</label>
             <input
               type="text"
-              name ="languages"
+              name="languages"
               defaultValue={country?.languages?.[0]?.name || ""}
               onBlur={handleChange}
             />
             <label htmlFor="currency">Currency</label>
             <input
               type="text"
-              name ="currency"
-              defaultValue={country.currency} 
+              name="currency"
+              defaultValue={country.currency}
               onBlur={handleChange}
             />
           </div>
         </section>
         <div className="buttons-container">
-  <div className="button-update">
-    <button onClick={handleUpdate}>Update Country</button>
-  </div>
-  <div className="button-delete">
-    <button onClick={handleClickDelete}>Delete Country</button>
-  </div>
-</div>
+          <div className="button-update">
+            <button onClick={handleUpdate}>Update Country</button>
+          </div>
+          <div className="button-delete">
+            <button onClick={handleClickDelete}>Delete Country</button>
+          </div>
+        </div>
       </section>
     </>
   );
 };
 
-
 export default UpdateCountryForm;
+
