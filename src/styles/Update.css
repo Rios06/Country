@@ -110,3 +110,15 @@ margin-right: 15px;
   margin-right: px;
  
 }
+
+@media only screen and (max-width: 768px) {
+  .section-update {
+    padding: 10px;
+    margin-top: -20px;
+
+  }
+
+  .container-update {
+    padding: 10px;
+  }
+}

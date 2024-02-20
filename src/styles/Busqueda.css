@@ -175,5 +175,17 @@ body{
 }
 
 
+@media only screen and (max-width: 768px) {
+  .content-search {
+    margin-left: 0;
+  }
+
+  .search-bar {
+    width: 100%;
+    padding: 6px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
 
 
