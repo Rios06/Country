@@ -165,7 +165,6 @@ const CountryCard = ({ country, selectedCountry, getFlagImageUrl }) => {
           />
         </div>
       </div>
-
       {expanded && (
         <div className="additional-info">
           <p>Capital: {country.capital}</p>
