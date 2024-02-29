@@ -46,3 +46,23 @@ margin-bottom: 20px;
     margin-top: 380px;
     text-align: center;
   }
+
+
+  
+@media only screen and (max-width: 768px) {
+  .logo {
+    width: 80px;
+  }
+
+  .menu-container {
+    width: 100%;
+  }
+
+  .menu-items {
+    padding: 10px;
+  }
+
+  .date {
+    margin-top: 20px;
+  }
+}
